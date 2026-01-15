@@ -7,7 +7,7 @@ A collection of Claude Code plugins for Intelligems A/B testing automation.
 In Claude Code, run:
 
 ```
-/plugin marketplace add victorpaytuvi/intelligems-plugins
+/plugin marketplace add https://github.com/Victorpay1/intelligems-plugins.git
 ```
 
 Then install the plugin you want:
