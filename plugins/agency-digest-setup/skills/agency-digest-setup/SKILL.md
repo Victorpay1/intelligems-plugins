@@ -5,122 +5,173 @@ description: Set up automated daily Slack digests for Intelligems A/B tests acro
 
 # /agency-digest-setup
 
-Create the complete Agency Morning Digest automation in one command.
+Create the complete Agency Morning Digest automation through conversation.
+
+**What you'll get:**
+- Daily Slack messages with all active A/B tests
+- Key metrics: rev/visitor, profit/visitor, conversion, AOV
+- Health indicators for tests needing attention
+- One message per brand (ready to forward to clients)
 
 ---
 
-## What This Creates
+## Setup Workflow
 
-- **Daily Slack messages** with all active A/B tests across your brands
-- **Key metrics**: rev/visitor, profit/visitor, conversion, AOV
-- **Health indicators**: which tests need attention
-- **One message per brand**: ready to forward to clients
+Follow these steps in order. Ask questions conversationally, then create files directly.
 
----
+### Step 1: Project Directory
 
-## Usage
+Ask where to create the project files.
 
-Run the setup script:
+Default: current working directory. If it's empty or home directory, suggest creating `~/Desktop/agency-morning-digest/`.
 
+### Step 2: Slack Webhook
+
+Ask: "Do you already have a Slack webhook URL, or do you need help creating one?"
+
+**If they need help creating one:**
+
+Guide them through:
+1. Go to https://api.slack.com/apps
+2. Click "Create New App" > "From scratch"
+3. Name it "Agency Test Digest" and select workspace
+4. Click "Incoming Webhooks" in sidebar
+5. Toggle "Activate Incoming Webhooks" to On
+6. Click "Add New Webhook to Workspace"
+7. Select the channel and click "Allow"
+8. Copy the webhook URL (starts with `https://hooks.slack.com/services/`)
+
+**If using Chrome browser automation:** Offer to guide them through the Slack API website step by step.
+
+Once they have the URL, save it for Step 4.
+
+### Step 3: Brand Configuration
+
+Ask: "What brands do you want to track? For each brand, I'll need a name and Intelligems API key."
+
+Collect for each brand:
+- **Brand name**: What shows in Slack (e.g., "Brand A", "Client Store")
+- **API key**: Format is `ig_live_xxxxxxxxxx`
+
+Allow multiple brands. Ask "Add another brand?" after each one.
+
+If they don't have API keys, direct them to contact Intelligems support.
+
+### Step 4: Create Files
+
+Read the templates from `references/file-templates.md` and create these files in the project directory:
+
+1. **agency_digest.py** - Main script (copy exactly from template)
+2. **config.py** - Configuration with thresholds (copy from template)
+3. **brands.json** - Fill in user's brand names and API keys
+4. **`.env`** - Fill in user's Slack webhook URL
+5. **requirements.txt** - Python dependencies (copy from template)
+6. **`.gitignore`** - Protects credentials (copy from template)
+
+### Step 5: Install Dependencies
+
+Run:
 ```bash
-python3 scripts/setup.py
+pip install -r requirements.txt
 ```
 
-The script will:
-1. Ask for your Slack webhook URL (with instructions to create one)
-2. Ask for each brand's name and Intelligems API key
-3. Create all necessary files in the current directory
-4. Install dependencies
-5. Optionally set up daily 8 AM automation (macOS)
-6. Send a test message to verify it works
+If pip fails, try:
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+### Step 6: Daily Scheduler (Optional, macOS only)
+
+Ask: "Want to set up automatic daily messages at 8 AM?"
+
+If yes:
+
+1. Detect Python path: `which python3`
+2. Create the plist file at `~/Library/LaunchAgents/com.intelligems.agency-digest.plist` using template from `references/file-templates.md`
+3. Replace placeholders with actual paths
+4. Load the scheduler: `launchctl load ~/Library/LaunchAgents/com.intelligems.agency-digest.plist`
+
+Tell user: "Your computer needs to be on at 8 AM for the message to send."
+
+### Step 7: Test
+
+Ask: "Want to send a test message to Slack now?"
+
+If yes, run:
+```bash
+python3 agency_digest.py
+```
+
+If they want a preview first:
+```bash
+python3 agency_digest.py --dry-run
+```
+
+### Step 8: Confirm Setup
+
+Summarize what was created:
+- Files location
+- Brands configured
+- Scheduler status
+- Commands for later use
 
 ---
 
-## After Setup
+## Commands After Setup
 
 ```bash
 # Send digest now
-python agency_digest.py
+python3 agency_digest.py
 
 # Preview without sending
-python agency_digest.py --dry-run
+python3 agency_digest.py --dry-run
 
 # One combined message (instead of per-brand)
-python agency_digest.py --consolidated
+python3 agency_digest.py --consolidated
 ```
 
 ---
 
-## Requirements
-
-- **Slack webhook URL**: Create at https://api.slack.com/apps
-- **Intelligems API key(s)**: Contact support@intelligems.io for access
-
----
-
-## Intelligems Philosophy
-
-The digest follows Intelligems' testing mindset:
-- **Rev/visitor is the north star** (not conversion)
-- **80% confidence is enough** ("we're not making cancer medicine")
-- **10-day minimum runtime** before calling winners
-- Every test is a learning — no "negative" framing
-
----
-
-## Files Created
-
-| File | Purpose |
-|------|---------|
-| `agency_digest.py` | Main script |
-| `config.py` | Thresholds and settings |
-| `brands.json` | Brand API keys (gitignored) |
-| `.env` | Slack webhook URL (gitignored) |
-| `requirements.txt` | Python dependencies |
-| `.gitignore` | Protects credentials |
-
----
-
-## Customization
-
-Edit `config.py` to adjust thresholds:
-
-| Setting | Default | Purpose |
-|---------|---------|---------|
-| `MIN_RUNTIME_DAYS` | 10 | Days before calling winners |
-| `MIN_CONFIDENCE_LEVEL` | 0.80 | Confidence for significance |
-| `MIN_SESSIONS_FOR_SIGNIFICANCE` | 100 | Minimum visitors |
-| `NEUTRAL_LIFT_THRESHOLD` | 0.05 | ±5% considered flat |
-
----
-
-## Adding More Brands
+## Adding More Brands Later
 
 Edit `brands.json`:
 
 ```json
 {
   "brands": [
-    {"name": "Brand A", "display_name": "Brand A Store", "api_key": "ig_live_xxx"},
-    {"name": "Brand B", "display_name": "Brand B Store", "api_key": "ig_live_yyy"}
+    {"name": "Brand A", "display_name": "Brand A", "api_key": "ig_live_xxx"},
+    {"name": "Brand B", "display_name": "Brand B", "api_key": "ig_live_yyy"}
   ]
 }
 ```
 
 ---
 
+## Customizing Thresholds
+
+Edit `config.py`:
+
+| Setting | Default | Purpose |
+|---------|---------|---------|
+| `MIN_RUNTIME_DAYS` | 10 | Days before calling winners |
+| `MIN_CONFIDENCE_LEVEL` | 0.80 | 80% confidence threshold |
+| `MIN_SESSIONS_FOR_SIGNIFICANCE` | 100 | Minimum visitors |
+| `NEUTRAL_LIFT_THRESHOLD` | 0.05 | ±5% considered flat |
+
+---
+
 ## Troubleshooting
 
-**No messages received:**
+**No Slack message?**
 - Check `/tmp/agency-digest.log` for errors
 - Verify webhook URL in `.env`
-- Run `python agency_digest.py --dry-run` to preview
+- Run with `--dry-run` to preview
 
-**Scheduler not running (macOS):**
+**Scheduler not running (macOS)?**
 ```bash
 launchctl list | grep agency-digest
 ```
 
-**API errors:**
+**API errors?**
 - Verify API key format: `ig_live_xxxxxxxxxx`
 - Contact Intelligems support for access
