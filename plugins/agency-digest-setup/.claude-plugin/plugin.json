@@ -1,0 +1,8 @@
+{
+  "name": "agency-digest-setup",
+  "description": "Automated daily Slack digests for Intelligems A/B tests across multiple brands",
+  "author": {
+    "name": "Victor Paytuvi",
+    "email": "victor@intelligems.io"
+  }
+}
