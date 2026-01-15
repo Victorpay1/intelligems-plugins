@@ -16,6 +16,35 @@ Then install the plugin you want:
 /plugin install agency-digest-setup
 ```
 
+## Updating
+
+When updates are pushed to this repository:
+
+**Option 1: Try the update command**
+```
+/plugin update agency-digest-setup
+```
+
+**Option 2: Manual reinstall (if update doesn't work)**
+
+There's a known bug where `/plugin update` may not fully refresh the cache. If you're not getting the latest version:
+
+1. Delete the cached plugin:
+   ```bash
+   rm -r ~/.claude/plugins/cache/intelligems-plugins/
+   ```
+
+2. Remove from installed plugins registry:
+   - Edit `~/.claude/plugins/installed_plugins.json`
+   - Remove the `agency-digest-setup@intelligems-plugins` entry
+
+3. Restart Claude Code completely
+
+4. Reinstall:
+   ```
+   /plugin install agency-digest-setup
+   ```
+
 ## Available Plugins
 
 ### agency-digest-setup
