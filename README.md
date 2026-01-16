@@ -41,14 +41,25 @@ or
 
 When updates are pushed to this repository:
 
-**Option 1: Try the update command**
-```
-/plugin update agency-digest-setup
-```
+### Option 1: Use the `/plugin` menu (easiest)
 
-**Option 2: Manual reinstall (if update doesn't work)**
+1. Run `/plugin` in Claude Code
+2. Go to **Marketplaces** tab
+3. Select **intelligems-plugins**
+4. Click **"Update marketplace"** to get the latest versions
 
-There's a known bug where `/plugin update` may not fully refresh the cache. If you're not getting the latest version:
+Or enable **"Enable auto-update"** to automatically stay current.
+
+### Option 2: Update individual plugins
+
+1. Run `/plugin` in Claude Code
+2. Go to **Installed** tab
+3. Select the plugin you want to update
+4. Choose the update option
+
+### Troubleshooting (if updates don't work)
+
+There's a known bug where updates may not fully refresh the cache. If you're not getting the latest version:
 
 1. Delete the cached plugin:
    ```bash
@@ -57,7 +68,7 @@ There's a known bug where `/plugin update` may not fully refresh the cache. If y
 
 2. Remove from installed plugins registry:
    - Edit `~/.claude/plugins/installed_plugins.json`
-   - Remove the `agency-digest-setup@intelligems-plugins` entry
+   - Remove the plugin entries (e.g., `agency-digest-setup@intelligems-plugins`)
 
 3. Restart Claude Code completely
 
