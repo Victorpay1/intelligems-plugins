@@ -287,7 +287,7 @@ class SlackNotifier:
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": f":call_me_hand: *{result['test_name']}*"
+                "text": f"✏️ *{result['test_name']}*"
             }
         })
 
@@ -311,7 +311,7 @@ class SlackNotifier:
             "fields": [
                 {
                     "type": "mrkdwn",
-                    "text": f":calendar: *Runtime*\n{result['runtime_str']}"
+                    "text": f"⏱️ *Runtime*\n{result['runtime_str']}"
                 },
                 {
                     "type": "mrkdwn",
