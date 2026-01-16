@@ -86,15 +86,15 @@ Read the templates from `references/file-templates.md` and create these files in
 
 ### Step 7: Install Dependencies
 
-Run:
+Create a virtual environment and install dependencies:
+
 ```bash
-pip install -r requirements.txt
+cd {PROJECT_DIR}
+python3 -m venv venv
+./venv/bin/pip install -r requirements.txt
 ```
 
-If pip fails, try:
-```bash
-python3 -m pip install -r requirements.txt
-```
+This isolates packages and avoids conflicts with system Python.
 
 ### Step 8: Daily Scheduler (Optional, macOS only)
 
@@ -102,9 +102,9 @@ Ask: "Want to set up automatic daily health checks?"
 
 If yes:
 
-1. Detect Python path: `which python3`
-2. Create the plist file at `~/Library/LaunchAgents/com.intelligems.health-check.plist` using template
-3. Replace placeholders with actual paths and user's chosen time
+1. Create the plist file at `~/Library/LaunchAgents/com.intelligems.health-check.plist` using template
+2. Replace `{PROJECT_DIR}` with the actual project path (uses venv Python automatically)
+3. Replace `{HOUR}` and `{MINUTE}` with user's chosen time
 4. Load the scheduler: `launchctl load ~/Library/LaunchAgents/com.intelligems.health-check.plist`
 
 Tell user: "Your computer needs to be on at the scheduled time for the check to run."
@@ -115,7 +115,7 @@ Ask: "Want to run a test health check now?"
 
 If yes, run:
 ```bash
-python3 intelligems_health_check.py
+./venv/bin/python3 intelligems_health_check.py
 ```
 
 Check Slack for the message. The format should show:
@@ -139,8 +139,8 @@ Summarize what was created:
 ## Commands After Setup
 
 ```bash
-# Run health check now
-python3 intelligems_health_check.py
+# Run health check now (from project directory)
+./venv/bin/python3 intelligems_health_check.py
 
 # Check scheduler status (macOS)
 launchctl list | grep health-check

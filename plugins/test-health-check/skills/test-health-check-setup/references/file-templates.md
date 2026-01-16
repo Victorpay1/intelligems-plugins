@@ -493,8 +493,8 @@ SLACK_WEBHOOK_URL={WEBHOOK_URL}
 ## requirements.txt
 
 ```
-requests==2.31.0
-python-dotenv==1.0.0
+requests>=2.31.0
+python-dotenv>=1.0.0
 ```
 
 ---
@@ -518,7 +518,9 @@ venv/
 
 Save to `~/Library/LaunchAgents/com.intelligems.health-check.plist`
 
-Replace `{PYTHON_PATH}`, `{SCRIPT_PATH}`, `{WORKING_DIR}`, `{HOUR}`, and `{MINUTE}` with actual values:
+Replace `{PROJECT_DIR}`, `{HOUR}`, and `{MINUTE}` with actual values.
+
+**Important:** Use the venv Python, not system Python:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -529,11 +531,11 @@ Replace `{PYTHON_PATH}`, `{SCRIPT_PATH}`, `{WORKING_DIR}`, `{HOUR}`, and `{MINUT
     <string>com.intelligems.health-check</string>
     <key>ProgramArguments</key>
     <array>
-        <string>{PYTHON_PATH}</string>
-        <string>{SCRIPT_PATH}</string>
+        <string>{PROJECT_DIR}/venv/bin/python3</string>
+        <string>{PROJECT_DIR}/intelligems_health_check.py</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>{WORKING_DIR}</string>
+    <string>{PROJECT_DIR}</string>
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>

@@ -70,15 +70,15 @@ Read the templates from `references/file-templates.md` and create these files in
 
 ### Step 5: Install Dependencies
 
-Run:
+Create a virtual environment and install dependencies:
+
 ```bash
-pip install -r requirements.txt
+cd {PROJECT_DIR}
+python3 -m venv venv
+./venv/bin/pip install -r requirements.txt
 ```
 
-If pip fails, try:
-```bash
-python3 -m pip install -r requirements.txt
-```
+This isolates packages and avoids conflicts with system Python.
 
 ### Step 6: Daily Scheduler (Optional, macOS only)
 
@@ -86,10 +86,9 @@ Ask: "Want to set up automatic daily messages at 8 AM?"
 
 If yes:
 
-1. Detect Python path: `which python3`
-2. Create the plist file at `~/Library/LaunchAgents/com.intelligems.agency-digest.plist` using template from `references/file-templates.md`
-3. Replace placeholders with actual paths
-4. Load the scheduler: `launchctl load ~/Library/LaunchAgents/com.intelligems.agency-digest.plist`
+1. Create the plist file at `~/Library/LaunchAgents/com.intelligems.agency-digest.plist` using template from `references/file-templates.md`
+2. Replace `{PROJECT_DIR}` with the actual project path (uses venv Python automatically)
+3. Load the scheduler: `launchctl load ~/Library/LaunchAgents/com.intelligems.agency-digest.plist`
 
 Tell user: "Your computer needs to be on at 8 AM for the message to send."
 
@@ -99,12 +98,12 @@ Ask: "Want to send a test message to Slack now?"
 
 If yes, run:
 ```bash
-python3 agency_digest.py
+./venv/bin/python3 agency_digest.py
 ```
 
 If they want a preview first:
 ```bash
-python3 agency_digest.py --dry-run
+./venv/bin/python3 agency_digest.py --dry-run
 ```
 
 ### Step 8: Confirm Setup
@@ -120,14 +119,14 @@ Summarize what was created:
 ## Commands After Setup
 
 ```bash
-# Send digest now
-python3 agency_digest.py
+# Send digest now (from project directory)
+./venv/bin/python3 agency_digest.py
 
 # Preview without sending
-python3 agency_digest.py --dry-run
+./venv/bin/python3 agency_digest.py --dry-run
 
 # One combined message (instead of per-brand)
-python3 agency_digest.py --consolidated
+./venv/bin/python3 agency_digest.py --consolidated
 ```
 
 ---

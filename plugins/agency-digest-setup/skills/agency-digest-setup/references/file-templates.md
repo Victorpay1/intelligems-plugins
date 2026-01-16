@@ -612,8 +612,8 @@ SLACK_WEBHOOK_URL={WEBHOOK_URL}
 ## requirements.txt
 
 ```
-requests==2.31.0
-python-dotenv==1.0.0
+requests>=2.31.0
+python-dotenv>=1.0.0
 ```
 
 ---
@@ -638,7 +638,9 @@ venv/
 
 Save to `~/Library/LaunchAgents/com.intelligems.agency-digest.plist`
 
-Replace `{PYTHON_PATH}`, `{SCRIPT_PATH}`, and `{WORKING_DIR}` with actual paths:
+Replace `{PROJECT_DIR}` with the actual project path.
+
+**Important:** Use the venv Python, not system Python:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -649,11 +651,11 @@ Replace `{PYTHON_PATH}`, `{SCRIPT_PATH}`, and `{WORKING_DIR}` with actual paths:
     <string>com.intelligems.agency-digest</string>
     <key>ProgramArguments</key>
     <array>
-        <string>{PYTHON_PATH}</string>
-        <string>{SCRIPT_PATH}</string>
+        <string>{PROJECT_DIR}/venv/bin/python3</string>
+        <string>{PROJECT_DIR}/agency_digest.py</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>{WORKING_DIR}</string>
+    <string>{PROJECT_DIR}</string>
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
