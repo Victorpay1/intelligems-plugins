@@ -113,6 +113,10 @@ Set up automated daily Slack digests for Intelligems A/B tests across multiple b
 - Health status at a glance (which tests need attention)
 - No more logging into multiple accounts every morning
 
+**Example output:**
+
+![Agency Digest Example](images/agency-digest-example.png)
+
 **Usage:**
 
 After installing, run:
@@ -138,6 +142,10 @@ Set up automated daily Slack health checks for Intelligems A/B tests. Based on [
 - Alerts when tests need attention (conversion drops, low traffic)
 - Clear statistical outlook for each test
 - Simpler setup than agency-digest (one API key only)
+
+**Example output:**
+
+![Test Health Check Example](images/test-health-check-example.png)
 
 **Usage:**
 
