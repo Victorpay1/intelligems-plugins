@@ -1,6 +1,6 @@
 ---
 name: test-health-check-setup
-description: Set up automated daily Slack health checks for Intelligems A/B tests. Monitors a single brand and alerts you when tests need attention (conversion drops, low traffic, statistical significance). Use when someone wants to build the test monitoring integration from Jerica's tutorial.
+description: Get alerts in Slack when your A/B tests need attention. Use when you want daily health checks for your Intelligems tests, need to know when conversion drops or traffic is low, or want to monitor statistical significance progress. Sends one message per test with clear status indicators. Great for single-brand monitoring.
 ---
 
 # /test-health-check-setup

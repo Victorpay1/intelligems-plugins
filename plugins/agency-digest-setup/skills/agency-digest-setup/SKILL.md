@@ -1,6 +1,6 @@
 ---
 name: agency-digest-setup
-description: Set up automated daily Slack digests for Intelligems A/B tests across multiple brands. Use when someone wants to create the Agency Morning Digest automation, install the Intelligems Slack integration, or build a multi-brand test monitoring system. This skill handles the complete setup - just run it and answer the questions.
+description: Get daily A/B test updates in Slack for multiple brands. Use when you want morning summaries of all your Intelligems tests, need to monitor tests across multiple stores or clients, or want automated Slack notifications with key metrics like revenue per visitor, profit per visitor, and conversion rates. Perfect for agencies managing multiple brands.
 ---
 
 # /agency-digest-setup
