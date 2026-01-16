@@ -4,22 +4,37 @@ A collection of Claude Code plugins for Intelligems A/B testing automation.
 
 ## Installation
 
-In Claude Code, run:
+### Step 1: Add the marketplace
+
+Open a terminal and run:
+
+```bash
+claude plugin marketplace add https://github.com/Victorpay1/intelligems-plugins.git
+```
+
+### Step 2: Install the plugins you want
+
+```bash
+claude plugin install agency-digest-setup
+claude plugin install test-health-check-setup
+```
+
+Or install from within Claude Code using the `/plugin` menu.
+
+### Step 3: Restart Claude Code
+
+After installing, **restart Claude Code** so it loads the new skills.
+
+### Step 4: Run the setup
 
 ```
-/plugin marketplace add https://github.com/Victorpay1/intelligems-plugins.git
-```
-
-Then install the plugin you want:
-
-```
-/plugin install agency-digest-setup
+/agency-digest-setup
 ```
 
 or
 
 ```
-/plugin install test-health-check-setup
+/test-health-check-setup
 ```
 
 ## Updating
@@ -47,9 +62,33 @@ There's a known bug where `/plugin update` may not fully refresh the cache. If y
 3. Restart Claude Code completely
 
 4. Reinstall:
+   ```bash
+   claude plugin install agency-digest-setup
    ```
-   /plugin install agency-digest-setup
+
+## Uninstalling
+
+To completely remove the plugins:
+
+1. Delete the cache:
+   ```bash
+   rm -rf ~/.claude/plugins/cache/intelligems-plugins/
    ```
+
+2. Edit `~/.claude/plugins/installed_plugins.json` and remove:
+   - `agency-digest-setup@intelligems-plugins`
+   - `test-health-check-setup@intelligems-plugins`
+
+3. Edit `~/.claude/settings.json` and remove from `enabledPlugins`:
+   - `agency-digest-setup@intelligems-plugins`
+   - `test-health-check-setup@intelligems-plugins`
+
+4. Restart Claude Code
+
+To also remove the marketplace:
+```bash
+claude plugin marketplace remove intelligems-plugins
+```
 
 ## Available Plugins
 
@@ -92,12 +131,6 @@ Set up automated daily Slack health checks for Intelligems A/B tests. Based on [
 **Usage:**
 
 After installing, run:
-
-```
-/plugin install test-health-check-setup
-```
-
-Then:
 
 ```
 /test-health-check-setup
