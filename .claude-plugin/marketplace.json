@@ -15,6 +15,15 @@
       },
       "source": "./plugins/agency-digest-setup",
       "category": "productivity"
+    },
+    {
+      "name": "test-health-check-setup",
+      "description": "Set up automated daily Slack health checks for Intelligems A/B tests. Monitors a single brand and alerts you when tests need attention.",
+      "author": {
+        "name": "Jerica Huang"
+      },
+      "source": "./plugins/test-health-check",
+      "category": "productivity"
     }
   ]
 }

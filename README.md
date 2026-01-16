@@ -16,6 +16,12 @@ Then install the plugin you want:
 /plugin install agency-digest-setup
 ```
 
+or
+
+```
+/plugin install test-health-check-setup
+```
+
 ## Updating
 
 When updates are pushed to this repository:
@@ -70,6 +76,51 @@ The setup wizard will guide you through:
 2. Brand names and API keys
 3. Daily schedule preferences
 4. Test message verification
+
+---
+
+### test-health-check-setup
+
+Set up automated daily Slack health checks for Intelligems A/B tests. Based on [Jerica's tutorial](https://docs.intelligems.io/developer-resources/external-api/build-an-automated-test-monitoring-integration-for-slack).
+
+**Perfect for single brands because:**
+- One message per test (detailed health status)
+- Alerts when tests need attention (conversion drops, low traffic)
+- Clear statistical outlook for each test
+- Simpler setup than agency-digest (one API key only)
+
+**Usage:**
+
+After installing, run:
+
+```
+/plugin install test-health-check-setup
+```
+
+Then:
+
+```
+/test-health-check-setup
+```
+
+The setup wizard will guide you through:
+1. Slack webhook configuration
+2. Your Intelligems API key
+3. Optional threshold customization
+4. Daily schedule preferences
+5. Test message verification
+
+---
+
+### Which plugin should I use?
+
+| Feature | agency-digest-setup | test-health-check-setup |
+|---------|---------------------|-------------------------|
+| Brands | Multiple | Single |
+| Messages | One per brand | One per test |
+| Focus | Daily summary | Health monitoring |
+| Alerts | Lift + confidence | Conversion drops |
+| Best for | Agencies | Individual merchants |
 
 ## Requirements
 
