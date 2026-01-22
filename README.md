@@ -1,107 +1,58 @@
-# Intelligems Plugins for Claude Code
+# Intelligems Skills for Claude Code
 
-A collection of Claude Code plugins for Intelligems A/B testing automation.
+A collection of Claude Code skills for Intelligems A/B testing automation.
 
 ## Installation
 
-### Step 1: Add the marketplace
+```bash
+npx skills add Victorpay1/intelligems-plugins
+```
 
-Open a terminal and run:
+This installs all 3 skills. After installing, **restart Claude Code** to load the new skills.
+
+### Install individual skills
 
 ```bash
-claude plugin marketplace add https://github.com/Victorpay1/intelligems-plugins.git
+npx skills add Victorpay1/intelligems-plugins/skills/agency-digest-setup
+npx skills add Victorpay1/intelligems-plugins/skills/test-health-check-setup
+npx skills add Victorpay1/intelligems-plugins/skills/intelligems-segment-analysis
 ```
 
-### Step 2: Install the plugins you want
+## Available Skills
 
-```bash
-claude plugin install agency-digest-setup
-claude plugin install test-health-check-setup
-```
+### intelligems-segment-analysis
 
-Or install from within Claude Code using the `/plugin` menu.
+Analyze which audience segments each active experiment is winning in.
 
-### Step 3: Restart Claude Code
+**Shows:**
+- Device type breakdowns (Desktop, Mobile, Tablet)
+- Visitor type (New vs Returning)
+- Traffic source (Paid Search, Organic, Direct, etc.)
 
-After installing, **restart Claude Code** so it loads the new skills.
-
-### Step 4: Run the setup
+**Example output:**
 
 ```
-/agency-digest-setup
+======================================================================
+  Homepage Price Test
+   Runtime: 21 days | Visitors: 45,000 | Orders: 320
+======================================================================
+
+📱 BY DEVICE
+╭─────────┬──────────┬────────┬───────────┬─────────────┬──────────┬────────────╮
+│ Segment │ Visitors │ Orders │ Variation │ Status      │ RPV Lift │ Confidence │
+├─────────┼──────────┼────────┼───────────┼─────────────┼──────────┼────────────┤
+│ Mobile  │   32,000 │    180 │ +5%       │ Doing well  │ +12.3%   │ 87%        │
+│ Desktop │   13,000 │    140 │ +5%       │ Inconclusive│ +4.2%    │ 62%        │
+╰─────────┴──────────┴────────┴───────────┴─────────────┴──────────┴────────────╯
 ```
 
-or
+**Usage:**
 
 ```
-/test-health-check-setup
+/intelligems-segment-analysis
 ```
 
-## Updating
-
-When updates are pushed to this repository:
-
-### Option 1: Use the `/plugin` menu (easiest)
-
-1. Run `/plugin` in Claude Code
-2. Go to **Marketplaces** tab
-3. Select **intelligems-plugins**
-4. Click **"Update marketplace"** to get the latest versions
-
-Or enable **"Enable auto-update"** to automatically stay current.
-
-### Option 2: Update individual plugins
-
-1. Run `/plugin` in Claude Code
-2. Go to **Installed** tab
-3. Select the plugin you want to update
-4. Choose the update option
-
-### Troubleshooting (if updates don't work)
-
-There's a known bug where updates may not fully refresh the cache. If you're not getting the latest version:
-
-1. Delete the cached plugin:
-   ```bash
-   rm -r ~/.claude/plugins/cache/intelligems-plugins/
-   ```
-
-2. Remove from installed plugins registry:
-   - Edit `~/.claude/plugins/installed_plugins.json`
-   - Remove the plugin entries (e.g., `agency-digest-setup@intelligems-plugins`)
-
-3. Restart Claude Code completely
-
-4. Reinstall:
-   ```bash
-   claude plugin install agency-digest-setup
-   ```
-
-## Uninstalling
-
-To completely remove the plugins:
-
-1. Delete the cache:
-   ```bash
-   rm -rf ~/.claude/plugins/cache/intelligems-plugins/
-   ```
-
-2. Edit `~/.claude/plugins/installed_plugins.json` and remove:
-   - `agency-digest-setup@intelligems-plugins`
-   - `test-health-check-setup@intelligems-plugins`
-
-3. Edit `~/.claude/settings.json` and remove from `enabledPlugins`:
-   - `agency-digest-setup@intelligems-plugins`
-   - `test-health-check-setup@intelligems-plugins`
-
-4. Restart Claude Code
-
-To also remove the marketplace:
-```bash
-claude plugin marketplace remove intelligems-plugins
-```
-
-## Available Plugins
+---
 
 ### agency-digest-setup
 
@@ -118,8 +69,6 @@ Set up automated daily Slack digests for Intelligems A/B tests across multiple b
 ![Agency Digest Example](images/agency-digest-example.png)
 
 **Usage:**
-
-After installing, run:
 
 ```
 /agency-digest-setup
@@ -149,8 +98,6 @@ Set up automated daily Slack health checks for Intelligems A/B tests. Based on [
 
 **Usage:**
 
-After installing, run:
-
 ```
 /test-health-check-setup
 ```
@@ -164,22 +111,18 @@ The setup wizard will guide you through:
 
 ---
 
-### Which plugin should I use?
+## Which skill should I use?
 
-| Feature | agency-digest-setup | test-health-check-setup |
-|---------|---------------------|-------------------------|
-| Brands | Multiple | Single |
-| Messages | One per brand | One per test |
-| Focus | Daily summary | Health monitoring |
-| Alerts | Lift + confidence | Conversion drops |
-| Best for | Agencies | Individual merchants |
+| Feature | segment-analysis | agency-digest | test-health-check |
+|---------|------------------|---------------|-------------------|
+| Purpose | Segment insights | Daily summary | Health monitoring |
+| Brands | Any | Multiple | Single |
+| Output | CLI table | Slack message | Slack message |
+| Schedule | On-demand | Daily | Daily |
+| Best for | Finding winners | Agencies | Individual merchants |
 
 ## Requirements
 
 - Claude Code (Pro, Max, Teams, or Enterprise)
-- Intelligems API key(s) for each brand
-- A Slack workspace with webhook access
-
-## Support
-
-For Intelligems API access, contact [support](https://portal.usepylon.com/intelligems/forms/intelligems-support-request).
+- Intelligems API key(s) - contact [support](https://portal.usepylon.com/intelligems/forms/intelligems-support-request)
+- For digest skills: A Slack workspace with webhook access
